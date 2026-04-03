@@ -1,5 +1,12 @@
 from pdf_to_vectordb import pdf_to_vectordb
 from rag import rag
+from pydantic import BaseModel
+import os
+import uvicorn
+from fastapi import FastAPI
+
+
+app = FastAPI()
 
 def main():
     pdf_to_vectordb()
