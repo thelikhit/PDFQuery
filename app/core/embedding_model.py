@@ -1,10 +1,8 @@
 from langchain_openai import AzureOpenAIEmbeddings
-
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
-
 
 def get_embedding_model():
     embedding_model = AzureOpenAIEmbeddings(

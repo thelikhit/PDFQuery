@@ -9,12 +9,12 @@ from langchain_community.document_loaders.pdf import PyPDFDirectoryLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_classic.schema.document import Document
 
-from get_embedding_model import get_embedding_model
+from app.core.embedding_model import get_embedding_model
 import hashlib
 
-from vdb_config import vdb_config
+from app.db.vdb_config import vdb_config
 
-DATA_PATH = "pdfs"
+DATA_PATH = "D:\ProgramFiles\PycharmProjects\PDFQuery\pdfs"
 
 # load document from user/from doc path
 def _load_documents():
@@ -42,7 +42,7 @@ def _add_to_vector_database(chunks: list[Document]):
     embeddings = get_embedding_model().embed_documents(texts)
 
     #3. generate ID for each chunk
-    ids = [hashlib.md5(chunk.page_content.encode()).hexdigest() for chunk in chunks]
+    ids = [f"{hashlib.md5(chunk.page_content.encode()).hexdigest()}_{i}" for i, chunk in enumerate(chunks)]
 
     vdb_client, vdb_collection = vdb_config()
 

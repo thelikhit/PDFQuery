@@ -7,3 +7,7 @@ langchain-classic
 langchain-core
 chromadb
 python-dotenv
+slowapi
+fastapi
+pydantic
+mssql-python

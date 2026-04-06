@@ -1,8 +1,6 @@
-import os
-
-from vdb_config import vdb_config
-from get_embedding_model import get_embedding_model
-from get_llm_client import get_llm_client
+from app.db.vdb_config import vdb_config
+from app.core.embedding_model import get_embedding_model
+from app.core.llm_client import get_llm_client
 
 from langchain_core.prompts import ChatPromptTemplate
 
@@ -26,7 +24,7 @@ def rag(query_text: str):
     Answer the question based on the above context: {question}
     """
 
-    # get relavant chunks based on embeddings
+    # get relevant chunks based on embeddings
     query_results = vdb_collection.query(
         query_embeddings=query_embeddings,
         n_results=5,
