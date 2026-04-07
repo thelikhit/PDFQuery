@@ -11,3 +11,4 @@ slowapi
 fastapi
 pydantic
 mssql-python
+streamlit

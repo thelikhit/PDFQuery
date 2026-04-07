@@ -1,6 +1,6 @@
-from app.db.vdb_config import vdb_config
-from app.core.embedding_model import get_embedding_model
-from app.core.llm_client import get_llm_client
+from src.app.db.vdb_config import vdb_config
+from src.app.core.embedding_model import get_embedding_model
+from src.app.core.llm_client import get_llm_client
 
 from langchain_core.prompts import ChatPromptTemplate
 

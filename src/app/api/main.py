@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.api.routes import chat, upload
+from src.app.api.routes import upload, chat
 
 app = FastAPI()
 app.include_router(chat.router)

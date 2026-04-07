@@ -9,10 +9,10 @@ from langchain_community.document_loaders.pdf import PyPDFDirectoryLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_classic.schema.document import Document
 
-from app.core.embedding_model import get_embedding_model
+from src.app.core.embedding_model import get_embedding_model
 import hashlib
 
-from app.db.vdb_config import vdb_config
+from src.app.db.vdb_config import vdb_config
 
 DATA_PATH = "D:\ProgramFiles\PycharmProjects\PDFQuery\pdfs"
 
