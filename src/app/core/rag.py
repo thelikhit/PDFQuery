@@ -27,7 +27,7 @@ def rag(query_text: str):
     # get relevant chunks based on embeddings
     query_results = vdb_collection.query(
         query_embeddings=query_embeddings,
-        n_results=5,
+        n_results=20,
     )
 
     # Quellen
@@ -64,7 +64,7 @@ def rag(query_text: str):
 
     # format response and return with sources
     formatted_response = f"Response: {response.choices[0].message.content}\nSources: {sources_list}"
-    return formatted_response
+    return response.choices[0].message.content
 
 
 

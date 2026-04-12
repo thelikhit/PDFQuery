@@ -12,3 +12,5 @@ fastapi
 pydantic
 mssql-python
 streamlit
+pypdf
+uvicorn

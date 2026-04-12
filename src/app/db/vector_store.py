@@ -5,29 +5,33 @@
 load pdf document from user/path, perform chunking, and save chunks to vector database.
 """
 
-from langchain_community.document_loaders.pdf import PyPDFDirectoryLoader
+from io import BytesIO
+from pypdf import PdfReader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_classic.schema.document import Document
-
 from src.app.core.embedding_model import get_embedding_model
 import hashlib
-
 from src.app.db.vdb_config import vdb_config
 
-DATA_PATH = "D:\ProgramFiles\PycharmProjects\PDFQuery\pdfs"
 
-# load document from user/from doc path
-def _load_documents():
-    document_loader = PyPDFDirectoryLoader(DATA_PATH)
-    return document_loader.load()
+# accepts bytes
+def _load_documents_from_bytes(content: bytes) -> list[Document]:
+    pdf = PdfReader(BytesIO(content))
+    documents = []
+    for i, page in enumerate(pdf.pages):
+        text = page.extract_text() or ""
+        documents.append(Document(
+            page_content=text,
+            metadata={"page": i}
+        ))
+    return documents
 
 # chunk document
 def _split_document(documents: list[Document]):
     text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=1500,
-        chunk_overlap=150,
-        length_function=len,
-        is_separator_regex=False
+        chunk_size=2048,
+        chunk_overlap=512,
+        separators=["\n\n", "\n", ".", " "],
     )
     return text_splitter.split_documents(documents)
 
@@ -54,12 +58,8 @@ def _add_to_vector_database(chunks: list[Document]):
         metadatas=metadatas
     )
 
-def pdf_to_vectordb():
-    # load pdf
-    documents = _load_documents()
-
-    # chunk pdf
+# accepts content: bytes, passes to new loader
+def pdf_to_vectordb(content: bytes):
+    documents = _load_documents_from_bytes(content)
     chunks = _split_document(documents)
-
-    # add to vector
     _add_to_vector_database(chunks)
