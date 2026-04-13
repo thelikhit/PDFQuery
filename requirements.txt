@@ -14,3 +14,6 @@ mssql-python
 streamlit
 pypdf
 uvicorn
+deepeval
+pdfplumber
+fastapi
