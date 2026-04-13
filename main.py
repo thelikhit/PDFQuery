@@ -5,7 +5,7 @@ import uvicorn
 import requests
 
 # Start API
-threading.Thread(target=uvicorn.run, kwargs={"app": "src.app.api.root:app"}, daemon=True).start()
+threading.Thread(target=uvicorn.run, kwargs={"app": "src.app.api.main:app"}, daemon=True).start()
 
 # Wait for API
 while True:
